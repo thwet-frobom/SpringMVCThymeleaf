@@ -17,9 +17,7 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public void add(User user) {
-	    entityManager.getTransaction().begin();
         entityManager.persist(user);
-        entityManager.getTransaction().commit();
 	}
 
 	@Override
