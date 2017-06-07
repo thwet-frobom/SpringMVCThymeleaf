@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -40,6 +41,12 @@ public class UserController {
     public String list(Model model) {
         model.addAttribute("users", this.userService.findAll());
         return "users";
+    }
+
+    @RequestMapping(value = "users/{id}", method = RequestMethod.GET)
+    public String showDetails(@PathVariable("id") int id, Model model) {
+        model.addAttribute("user", userService.findById(id));
+        return "userDetails";
     }
 
 }

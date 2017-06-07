@@ -6,7 +6,9 @@ import com.amh.pm.entity.User;
 
 public interface UserDao {
 
-	void add(User user);
-	
-	List<User> findAll();
+    void add(User user);
+
+    List<User> findAll();
+
+    User findById(int id);
 }

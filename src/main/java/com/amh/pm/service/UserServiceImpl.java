@@ -11,22 +11,28 @@ import com.amh.pm.entity.User;
 @Service
 public class UserServiceImpl implements UserService {
 
-	private UserDao userDao;
-	
-	public void setUserDao(UserDao userDao) {
-		this.userDao = userDao;
-	}
-	
-	@Override
-	@Transactional
-	public void add(User user) {
-		userDao.add(user);
-	}
+    private UserDao userDao;
 
-	@Override
-	@Transactional
-	public List<User> findAll() {
-		return userDao.findAll();
-	}
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
+    }
+
+    @Override
+    @Transactional
+    public void add(User user) {
+        userDao.add(user);
+    }
+
+    @Override
+    @Transactional
+    public List<User> findAll() {
+        return userDao.findAll();
+    }
+
+    @Override
+    @Transactional
+    public User findById(int id) {
+        return userDao.findById(id);
+    }
 
 }
