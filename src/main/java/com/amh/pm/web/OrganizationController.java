@@ -102,8 +102,8 @@ public class OrganizationController {
 	}
 
 	@RequestMapping(value = "/organization/{id}/members/new", method = RequestMethod.POST)
-	public String addOrganizationMember(@PathVariable("id") int orgid, @ModelAttribute User user, BindingResult result,
-			Model model, HttpServletRequest request) {
+	public String addOrganizationMember(@PathVariable("id") int orgid, @Validated @ModelAttribute User user,
+			BindingResult result, Model model, HttpServletRequest request) {
 
 		User u = userService.findUserIdByName(user.getName());
 
@@ -111,33 +111,40 @@ public class OrganizationController {
 
 		session = request.getSession(true);
 
-		if (u == null || organization == null) {
-			String noUserName = "User name does not exists.";
-
-			model.addAttribute("noNameError", noUserName);
+		if (user.getName().isEmpty()) {
+			model.addAttribute("userNameEmptyError", "Please Fill User Name");
+			model.addAttribute("orgId", orgid);
+			addOrganizationMember(orgid, model, request);
+			return "organizationMember";
 		} else {
+			if (u == null || organization == null) {
+				String noUserName = "User name does not exists.";
 
-			if (organization.getUser().contains(u)) {
-
-				// already exists
-
-				String member = "Exist Member!";
-
-				model.addAttribute("existMember", member);
-
+				model.addAttribute("noNameError", noUserName);
 			} else {
 
-				organization.getUser().add(u);
+				if (organization.getUser().contains(u)) {
 
-				organizationService.save(organization);
+					String member = "Exist Member!";
+
+					model.addAttribute("existMember", member);
+
+				} else {
+
+					organization.getUser().add(u);
+
+					organizationService.save(organization);
+
+				}
 
 			}
 
+			addOrganizationMember(orgid, model, request);
+
+			return "organizationMember";
+
 		}
 
-		addOrganizationMember(orgid, model, request);
-
-		return "organizationMember";
 	}
 
 	@RequestMapping(value = "/organizations/new", method = RequestMethod.GET)
@@ -151,29 +158,29 @@ public class OrganizationController {
 		}
 	}
 
-	@RequestMapping(value = "/neworganization", method = RequestMethod.POST)
+	@RequestMapping(value = "/organizations/new", method = RequestMethod.POST)
 	public String createOrganization(@Validated @ModelAttribute Organization organization, BindingResult result,
 			Model model, HttpServletRequest request) {
 		Organization orgResult = organizationService.findOrganizationByName(organization.getName());
-		if(result.hasErrors()){
+		if (result.hasErrors()) {
 			return "addorganization";
-		}else{
-			if(orgResult==null){
+		} else {
+			if (orgResult == null) {
 				int userId = (Integer) session.getAttribute("userId");
 				User user = userService.findById(userId);
 
 				organization.setOwner(user);
 				organizationService.save(organization);
-			}else{
+			} else {
 				String orgerror = "This organization name is already exists:";
 				model.addAttribute("orgError", orgerror);
 				showOrganizationsLists(model, request);
-				return "organizations";
+				return "addorganization";
 			}
-			
-			return "redirect:organizations";
+
+			return "redirect:/organizations";
 		}
-		
+
 	}
 
 }

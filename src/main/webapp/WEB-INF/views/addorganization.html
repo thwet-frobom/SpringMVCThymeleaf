@@ -8,8 +8,8 @@
 </head>
 <body>
 	<h2>ADD New Organization</h2>
-
-	<form action="#" th:action="@{/neworganization}"
+    <font color="red"><p th:text="${orgError}"></p></font>
+	<form action="#" th:action="@{/organizations/new}"
 		th:object="${organization}" method="post">
 		<font color="red"> <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p></font>
 		<font color="red"> <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></p></font>

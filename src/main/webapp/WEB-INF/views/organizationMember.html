@@ -9,22 +9,20 @@
 	<h4>
 		<font color="green"> Add New Organization Member </font>
 	</h4>
-
-	<!-- <p th:text="${session.noNameError}" th:unless="${session==null}"></p>
-
-	<p th:text="${session.existMember}" th:unless="${session==null}"></p> -->
-	<font color="red"><p th:text="${noNameError}"></p></font>
+	<font color="red"><p th:text="${noNameError}"></p></font> 
 	<font color="red"><p th:text="${existMember}"></p></font>
-
+	<font color="red"><p th:text="${userNameEmptyError}"></p></font>
+	
 	<form action="#"
 		th:action="@{'/organization/'+${orgId}+'/members/new'}"
 		th:object="${user}" method="post">
-
+     
 		<table>
 			<tr>
 				<td>Member Name</td>
 				<td><input type="text" th:field="*{name}"
-					placeholder="Enter Member Name" /></td>
+					placeholder="Enter Member Name" />
+				</td>
 			</tr>
 
 			<tr>
@@ -33,7 +31,7 @@
 			</tr>
 
 		</table>
-
+		
 		<div th:each="orgMember : ${orgMembers}">
 			<div th:text="${orgMember.name}"></div>
 		</div>
