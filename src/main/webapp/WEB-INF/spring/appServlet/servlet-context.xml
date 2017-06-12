@@ -33,6 +33,7 @@
 		<property name="templateEngine" ref="templateEngine" />
 	</bean>
 
+    <!-- User Inject -->
 	<bean id="userDao" class="com.amh.pm.dao.UserDaoImpl">
 	</bean>
 
@@ -40,12 +41,20 @@
 		<property name="userDao" ref="userDao"></property>
 	</bean>
 
+     <!-- Organization Inject -->
+     <bean id="organizationDao" class="com.amh.pm.dao.OrganizationDaoImpl">
+	 </bean>
+
+	<bean id="organizationService" class="com.amh.pm.service.OrganizationServiceImpl">
+		<property name="organizationDao" ref="organizationDao"></property>
+	</bean>
+	
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://localhost:3306/pm" />
 		<property name="username" value="root" />
-		<property name="password" value="root1" />
+		<property name="password" value="root35" />
 	</bean>
 
 	<bean id="entityManagerFactory"
@@ -61,11 +70,16 @@
 		</property>
 	</bean>
 
+
+	<!-- Messages Properties -->
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename" value="messages" />
+   </bean>
+   
 	<!-- Transactions -->
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
 	
 	<tx:annotation-driven transaction-manager="transactionManager" />
-
 </beans>

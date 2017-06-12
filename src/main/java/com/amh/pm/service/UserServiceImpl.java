@@ -17,22 +17,62 @@ public class UserServiceImpl implements UserService {
         this.userDao = userDao;
     }
 
-    @Override
-    @Transactional
-    public void add(User user) {
-        userDao.add(user);
-    }
+	@Override
+	@Transactional
+	public void save(User user) {
+		// TODO Auto-generated method stub
+		userDao.save(user);
+	}
 
-    @Override
-    @Transactional
-    public List<User> findAll() {
-        return userDao.findAll();
-    }
+	@Override
+	@Transactional
+	public void delete(User user) {
+		// TODO Auto-generated method stub
+		
+	}
 
-    @Override
-    @Transactional
-    public User findById(int id) {
-        return userDao.findById(id);
-    }
+	@Override
+	@Transactional
+	public void update(User user) {
+		// TODO Auto-generated method stub
+		
+	}
 
+	@Override
+	@Transactional
+	public List<User> findAll() {
+		// TODO Auto-generated method stub
+		return userDao.findAll();
+	}
+
+	@Override
+	@Transactional
+	public User findById(int userId) {
+		// TODO Auto-generated method stub
+		return userDao.findById(userId);
+	}
+
+	@Override
+	@Transactional
+	public User userByName(String name, String password) {
+		// TODO Auto-generated method stub
+		return userDao.userByName(name, password);
+	}
+
+	@Override
+	@Transactional
+	public List<User> findUserNameByOrgnId(int orgId) {
+		// TODO Auto-generated method stub
+		return userDao.findUserNameByOrgnId(orgId);
+	}
+
+	@Override
+	@Transactional
+	public User findUserIdByName(String userName) {
+		// TODO Auto-generated method stub
+		return userDao.findUserIdByName(userName);
+	}
+
+	
+    
 }

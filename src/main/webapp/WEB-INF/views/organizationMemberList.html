@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1"/>
+<title>MemberList</title>
+</head>
+<body>
+<h4>
+		<font color="green">Organization Member Lists</font>
+	</h4>
+
+
+	<font color="red"><p th:text="${session.noNameError}" th:unless="${session==null}"></p></font>
+
+<table>
+<tr th:each="orgMember : ${orgMembers}">
+<td th:text="${orgMember.name}"></td>
+</tr>
+</table>
+</body>
+</html>
