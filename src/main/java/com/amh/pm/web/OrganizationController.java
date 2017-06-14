@@ -53,23 +53,23 @@ public class OrganizationController {
 
 			int userId = (Integer) session.getAttribute("userId");
 
-			List<Organization> organizationList = this.organizationService.findAll();
+			List<Organization> organizations = this.organizationService.findAll();
 			List<Organization> organizationNotOwner = new ArrayList<Organization>();
 			List<Organization> organizationOwner = new ArrayList<Organization>();
 
-			for (Organization organization : organizationList) {
+			for (Organization organization : organizations) {
 				if (organization.getOwner().getId() == userId) {
 					organizationOwner.add(organization);
 				} else {
 					organizationNotOwner.add(organization);
 				}
 			}
+			
 			model.addAttribute("organizationsNotOwner", organizationNotOwner);
 			model.addAttribute("organizationsOwners", organizationOwner);
 
 			return "organizations";
 		}
-
 	}
 
 	@RequestMapping(value = "/organization/{id}/members", method = RequestMethod.GET)
@@ -80,7 +80,7 @@ public class OrganizationController {
 			return "redirect:/login";
 		} else {
 			session = request.getSession(true);
-			session.setAttribute("orgId", id);
+			session.setAttribute("organizationId", id);
 
 			List<User> userNameList = userService.findUserNameByOrgnId(id);
 
@@ -90,7 +90,7 @@ public class OrganizationController {
 			if (organizationId.getOwner().getId() == userid) {
 				model.addAttribute("orgMembers", userNameList);
 				model.addAttribute("user", new User());
-				model.addAttribute("orgId", id);
+				model.addAttribute("organizationId", id);
 				session.setAttribute("orgMemberName", userNameList);
 
 				return "organizationMember";
@@ -113,7 +113,7 @@ public class OrganizationController {
 
 		if (user.getName().isEmpty()) {
 			model.addAttribute("userNameEmptyError", "Please Fill User Name");
-			model.addAttribute("orgId", orgid);
+			model.addAttribute("organizationId", orgid);
 			addOrganizationMember(orgid, model, request);
 			return "organizationMember";
 		} else {
@@ -128,23 +128,18 @@ public class OrganizationController {
 					String member = "Exist Member!";
 
 					model.addAttribute("existMember", member);
-
 				} else {
 
 					organization.getUser().add(u);
 
 					organizationService.save(organization);
-
 				}
-
 			}
 
 			addOrganizationMember(orgid, model, request);
 
 			return "organizationMember";
-
 		}
-
 	}
 
 	@RequestMapping(value = "/organizations/new", method = RequestMethod.GET)

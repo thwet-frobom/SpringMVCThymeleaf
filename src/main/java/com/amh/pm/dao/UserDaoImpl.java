@@ -29,7 +29,7 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public void save(User user) {
 		// TODO Auto-generated method stub
-		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+		/*ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		Validator validator = factory.getValidator();
 		Set<ConstraintViolation<User>> constraintViolations = validator.validate(user);
 		if (constraintViolations.size() > 0) {
@@ -42,8 +42,8 @@ public class UserDaoImpl implements UserDao {
 		} else {
 
 			entityManager.persist(user);
-		}
-
+		}*/
+	    entityManager.merge(user);
 	}
 
 	@Override
@@ -119,5 +119,20 @@ public class UserDaoImpl implements UserDao {
 
 		return u;
 	}
+
+    @Override
+    public User findUserByEmail(String email) {
+        // TODO Auto-generated method stub
+        User user = null;
+        try {
+            Query q = entityManager.createQuery("select u from User u WHERE u.email=?");
+            q.setParameter(1, email);
+            user = (User) q.getSingleResult();
+        } catch (NoResultException e) {
+            System.out.println("Error is :" + e);
+        }
+
+        return user;
+    }
 
 }

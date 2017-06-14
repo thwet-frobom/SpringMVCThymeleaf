@@ -31,6 +31,31 @@ public class UserController {
     }
 
 
+    @RequestMapping(value = "/registration", method = RequestMethod.GET)
+	public String showRegistrationForm(Model model) {
+		model.addAttribute("user", new User());
+		return "registration";
+	}
+    
+    @RequestMapping(value = "/registrationuser", method = RequestMethod.POST)
+    public String userRegister(@Validated @ModelAttribute("userForm") User user, BindingResult result,Model model, HttpServletRequest request) {
+        
+        String name = user.getName();
+        String email = user.getEmail();
+        
+       User userNameCheck = userService.findUserIdByName(name);
+       User userEmailCheck = userService.findUserByEmail(email);
+       
+        if(userNameCheck == null && userEmailCheck==null){
+            userService.save(user);
+            return "login";
+        }else{
+            String existUser = "User account is already exists.";
+            model.addAttribute("existUser", existUser);
+            return "registration";
+        }
+    }
+    
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String showLoginForm(Model model) {
 		model.addAttribute("user", new User());

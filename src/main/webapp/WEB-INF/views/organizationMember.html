@@ -14,7 +14,7 @@
 	<font color="red"><p th:text="${userNameEmptyError}"></p></font>
 	
 	<form action="#"
-		th:action="@{'/organization/'+${orgId}+'/members/new'}"
+		th:action="@{'/organization/'+${organizationId}+'/members/new'}"
 		th:object="${user}" method="post">
      
 		<table>

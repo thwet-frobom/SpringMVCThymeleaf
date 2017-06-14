@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1" />
+<title>Add Projects</title>
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
+<script th:inline="javascript">
+	/*<![CDATA[*/
+
+	$(document).ready(function() {
+		$(".datepicker").datepicker();
+	});
+
+	/*]]>*/
+</script>
+</head>
+<body>
+	<font color="red"><p th:text="${scheduleEndDateError}"></p></font>
+	<font color="red"><p th:text="${actualEndDateError}"></p></font>
+	<font color="red"><p th:text="${actualStartDateError}"></p></font>
+	<font color="red"><p th:text="${dateEmptyError}"></p></font>
+	
+	<form name="projectForm" id="projectForm" action="#"
+		th:action="@{'/organizations/'+${organizationId}+'/projects/new'}"
+		th:object="${project}" method="post">
+		<font color="red">
+			<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+		</font> 
+		<font color="red">
+			<p th:if="${#fields.hasErrors('description')}"
+				th:errors="*{description}"></p>
+		</font>
+		<table>
+			<tr>
+				<td>Name:</td>
+				<td><input type="text" th:field="*{name}" placeholder="Name" /></td>
+			</tr>
+			<tr>
+				<td>Description:</td>
+				<td><input type="text" th:field="*{description}"
+					placeholder="Description" /></td>
+			</tr>
+			<tr>
+				<td>Schedule Start Date:</td>
+				<td><input type="text" th:field="*{scheduleStartDate}"
+					placeholder="ScheduleStartDate" class="datepicker" /></td>
+			</tr>
+			<tr>
+				<td>Schedule End Date:</td>
+				<td><input type="text" th:field="*{scheduleEndDate}"
+					placeholder="ScheduleEndDate" class="datepicker" /></td>
+			</tr>
+			<tr>
+				<td>Actual Start Date:</td>
+				<td><input type="text" th:field="*{actualStartDate}"
+					placeholder="ActualStartDate" class="datepicker" /></td>
+			</tr>
+			<tr>
+				<td>Actual End Date:</td>
+				<td><input type="text" th:field="*{actualEndDate}"
+					placeholder="actualEndDate" class="datepicker" /></td>
+			</tr>
+			<tr>
+				<td><input type="submit" value="Add" /></td>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>

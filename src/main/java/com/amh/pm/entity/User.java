@@ -42,12 +42,16 @@ public class User {
 	@NotEmpty(message = "Please enter your password.")
 	@Size(min = 3, max = 80, message = "Your password must between 3 and 80 characters")
 	private String password;
-	@OneToMany(mappedBy = "user")
-	private List<ProjectMember> project;
+	/*@OneToMany(mappedBy = "user")
+	private List<ProjectMember> project;*/
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "OrganizationMember", joinColumns = @JoinColumn(name = "userId", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "organizationId", referencedColumnName = "id"))
 	private List<Organization> orgList;
+
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "ProjectMember", joinColumns = @JoinColumn(name = "userId", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "projectId", referencedColumnName = "id"))
+	private List<Project> projects;
 
 	public User() {
 		super();
@@ -93,12 +97,12 @@ public class User {
 		this.password = password;
 	}
 
-	public List<ProjectMember> getProject() {
-		return project;
+	public List<Project> getProjects() {
+		return projects;
 	}
 
-	public void setProject(List<ProjectMember> project) {
-		this.project = project;
+	public void setProjects(List<Project> projects) {
+		this.projects = projects;
 	}
 
 	public List<Organization> getOrgList() {

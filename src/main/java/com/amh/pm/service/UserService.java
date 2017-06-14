@@ -21,4 +21,6 @@ public interface UserService {
 	public List<User> findUserNameByOrgnId(int orgId);
 
 	public User findUserIdByName(String userName);
+	
+	public User findUserByEmail(String email);
 }

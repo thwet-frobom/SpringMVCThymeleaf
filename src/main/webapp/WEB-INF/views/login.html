@@ -11,9 +11,10 @@
 	<form name="userForm" id="userForm" action="#"
 		th:action="@{/loginuser}" th:object="${user}" method="post">
 		
-		<input type="text" th:field="*{name}" placeholder="Name" />
-		 <input type="text" th:field="*{password}" placeholder="password" />
+		<input type="text" th:field="*{name}" placeholder="Name" /><br/>
+		 <input type="text" th:field="*{password}" placeholder="password" /><br/>
 		  <input type="submit" value="login" />
+		  <a href="#" th:href="@{/registration}">Register</a>
 	</form>
 </body>
 </html>
