@@ -47,12 +47,15 @@ public class UserController {
             
            User userNameCheck = userService.findUserIdByName(name);
            User userEmailCheck = userService.findUserByEmail(email);
-           
-           if(userNameCheck !=null){
+           if(userNameCheck !=null && userEmailCheck!=null){
+               String existUser = "User account is already exist:";
+               model.addAttribute("existUser", existUser);
+               return "registration";
+           }else if(userNameCheck !=null && userEmailCheck ==null){
                String nameExist = "User Name is already exist:";
                model.addAttribute("nameExist",nameExist);
                return "registration";
-           }else if(userEmailCheck !=null){
+           }else if(userEmailCheck !=null && userNameCheck == null){
                String emailExist = "User Email is already exist:";
                model.addAttribute("emailExist", emailExist);
                return "registration";

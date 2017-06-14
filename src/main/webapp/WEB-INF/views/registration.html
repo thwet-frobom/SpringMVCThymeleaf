@@ -9,6 +9,7 @@
 <h3> User Registration </h3>
 <font color="red"><p th:text="${nameExist}"></p></font>
 <font color="red"><p th:text="${emailExist}"></p></font>
+<font color="red"><p th:text="${existUser}"></p></font>
 
 	<form action="#"
 		th:action="@{/registrationuser}" th:object="${user}" method="post">	
@@ -18,7 +19,7 @@
 		
 		<input type="text" th:field="*{email}" placeholder="Email" /><br/>
 		<input type="text" th:field="*{name}" placeholder="Name" /><br/>
-		 <input type="text" th:field="*{password}" placeholder="password" /><br/>
+		 <input type="password" th:field="*{password}" placeholder="password" /><br/>
 		  <input type="submit" value="Register" />
 	</form>
 </body>
