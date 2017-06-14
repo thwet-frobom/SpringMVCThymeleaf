@@ -29,27 +29,12 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public void save(User user) {
 		// TODO Auto-generated method stub
-		/*ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-		Validator validator = factory.getValidator();
-		Set<ConstraintViolation<User>> constraintViolations = validator.validate(user);
-		if (constraintViolations.size() > 0) {
-			Iterator<ConstraintViolation<User>> iterator = constraintViolations.iterator();
-			while (iterator.hasNext()) {
-				ConstraintViolation<User> cv = iterator.next();
-				System.out.println("Violation Error:" + cv.getRootBeanClass().getName() + "." + cv.getPropertyPath()
-						+ " " + cv.getMessage());
-			}
-		} else {
-
-			entityManager.persist(user);
-		}*/
 	    entityManager.merge(user);
 	}
 
 	@Override
 	public void delete(User user) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -73,7 +58,7 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public User userByName(String name, String password) {
 		// TODO Auto-generated method stub
-		User u = null;
+		User user = null;
 		try {
 
 			Query q = entityManager.createQuery("SELECT u FROM User u WHERE u.name=? AND u.password=?");
@@ -82,7 +67,7 @@ public class UserDaoImpl implements UserDao {
 
 			q.setParameter(2, password);
 
-			u = (User) q.getSingleResult();
+			user = (User) q.getSingleResult();
 
 		} catch (NoResultException e) {
 
@@ -92,7 +77,7 @@ public class UserDaoImpl implements UserDao {
 
 		}
 
-		return u;
+		return user;
 	}
 
 	@Override
@@ -108,16 +93,16 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public User findUserIdByName(String userName) {
 		// TODO Auto-generated method stub
-		User u = null;
+		User user = null;
 		try {
 			Query q = entityManager.createQuery("select u from User u WHERE u.name=?");
 			q.setParameter(1, userName);
-			u = (User) q.getSingleResult();
+			user = (User) q.getSingleResult();
 		} catch (NoResultException e) {
 			System.out.println("Error is :" + e);
 		}
 
-		return u;
+		return user;
 	}
 
     @Override

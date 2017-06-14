@@ -38,21 +38,28 @@ public class UserController {
 	}
     
     @RequestMapping(value = "/registrationuser", method = RequestMethod.POST)
-    public String userRegister(@Validated @ModelAttribute("userForm") User user, BindingResult result,Model model, HttpServletRequest request) {
-        
-        String name = user.getName();
-        String email = user.getEmail();
-        
-       User userNameCheck = userService.findUserIdByName(name);
-       User userEmailCheck = userService.findUserByEmail(email);
-       
-        if(userNameCheck == null && userEmailCheck==null){
-            userService.save(user);
-            return "login";
-        }else{
-            String existUser = "User account is already exists.";
-            model.addAttribute("existUser", existUser);
+    public String userRegister(@Validated @ModelAttribute User user, BindingResult result,Model model, HttpServletRequest request) {
+        if(result.hasErrors()){
             return "registration";
+        }else{
+            String name = user.getName();
+            String email = user.getEmail();
+            
+           User userNameCheck = userService.findUserIdByName(name);
+           User userEmailCheck = userService.findUserByEmail(email);
+           
+           if(userNameCheck !=null){
+               String nameExist = "User Name is already exist:";
+               model.addAttribute("nameExist",nameExist);
+               return "registration";
+           }else if(userEmailCheck !=null){
+               String emailExist = "User Email is already exist:";
+               model.addAttribute("emailExist", emailExist);
+               return "registration";
+           }else{
+               userService.save(user);    
+               return "redirect:login";
+           }
         }
     }
     
@@ -78,8 +85,7 @@ public class UserController {
 	            session.setAttribute("name", u.getName());
 	            session.setAttribute("password", u.getPassword());
 	        }
-	        return "redirect:organizations";
-		
+	        return "redirect:organizations";		
 	}
 
     @RequestMapping(value = "/signup", method = RequestMethod.GET)
@@ -89,7 +95,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.POST)
-    public String addCustomer(@Validated @ModelAttribute("userForm") User user, BindingResult result, Model model) {
+    public String addCustomer(@Validated @ModelAttribute User user, BindingResult result, Model model) {
         userService.save(user);
         return "redirect:users";
     }
