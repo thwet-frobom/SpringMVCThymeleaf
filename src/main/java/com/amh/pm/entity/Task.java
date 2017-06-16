@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.*;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table
@@ -13,34 +14,45 @@ public class Task {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
+	
 	@Column(name = "title", nullable = false, unique = false)
 	@NotEmpty(message = "Please enter task title.")
 	private String title;
+	
 	@Column(name = "summary", nullable = false, unique = false)
 	@NotEmpty(message = "Please enter task summary.")
 	private String summary;
+	
 	@Column(name = "scheduleStartDate", nullable = false, unique = false)
-	//@NotEmpty(message = "Please enter your task start date.")
+    @DateTimeFormat(pattern = "MM/dd/yyyy")
 	private Date scheduleStartDate;
+	
 	@Column(name = "scheduleEndDate", nullable = false, unique = false)
-	//@NotEmpty(message = "Please enter your task end date.")
+    @DateTimeFormat(pattern = "MM/dd/yyyy")
 	private Date scheduleEndDate;
+	
 	@Column(name = "actualStartDate", nullable = false, unique = false)
+    @DateTimeFormat(pattern = "MM/dd/yyyy")
 	private Date actualStartDate;
+	
 	@Column(name = "actualEndDate", nullable = false, unique = false)
+    @DateTimeFormat(pattern = "MM/dd/yyyy")
 	private Date actualEndDate;
+	
 	@Column(name = "status", nullable = false, unique = false)
 	@NotEmpty(message = "Please enter your task status.")
 	private String status;
+	
 	@ManyToOne
-	//@NotEmpty(message = "Please choose poject.")
 	private Project project;
+	
 	@ManyToOne
-	//@NotEmpty(message = "Please choose assigne user.")
 	private User assignee;
+	
 	@Column(name = "weight", nullable = false, unique = false)
 	@NotEmpty(message = "Please enter weight.")
 	private String weight;
+	
 	@Column(name = "score", nullable = false, unique = false)
 	@NotEmpty(message = "Please enter score.")
 	private String score;
@@ -184,7 +196,7 @@ public class Task {
 	public void setTechnologyTag(List<TechnologyTag> technologyTag) {
 		this.technologyTag = technologyTag;
 	}
-	@Override
+	/*@Override
     public boolean equals(Object obj) {
         if (obj == this)
             return true;
@@ -213,5 +225,5 @@ public class Task {
         result = 31 * result + weight.hashCode();
         result = 31 * result + assignee.hashCode();
         return result;
-    }
+    }*/
 }

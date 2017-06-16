@@ -82,20 +82,20 @@ public class OrganizationController {
 			session = request.getSession(true);
 			session.setAttribute("organizationId", id);
 
-			List<User> userNameList = userService.findUserNameByOrgnId(id);
+			List<User> userNames = userService.findUserNameByOrgnId(id);
 
 			Organization organizationId = organizationService.findById(id);
 			int userid = (Integer) session.getAttribute("userId");
 
 			if (organizationId.getOwner().getId() == userid) {
-				model.addAttribute("orgMembers", userNameList);
+				model.addAttribute("orgMembers", userNames);
 				model.addAttribute("user", new User());
 				model.addAttribute("organizationId", id);
-				session.setAttribute("orgMemberName", userNameList);
+				session.setAttribute("orgMemberName", userNames);
 
 				return "organizationMember";
 			} else {
-				model.addAttribute("orgMembers", userNameList);
+				model.addAttribute("orgMembers", userNames);
 				return "organizationMemberList";
 			}
 		}

@@ -88,6 +88,7 @@ public class ProjectController {
                         projectNames.add(project);
                     }
                 }
+                model.addAttribute("organizationId", id);
                 model.addAttribute("projectNames", projectNames);
                 return "showProjectsList";
             }
@@ -143,6 +144,7 @@ public class ProjectController {
                 } else {
                     projectService.save(project);
                     showProjectLists(id, model, request);
+                    model.addAttribute("organizationId", id);
                     return "projectList";
                 }
             }
