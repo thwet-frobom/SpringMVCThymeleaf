@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1" />
+<title>Task Details:</title>
+</head>
+<body>
+	<table>
+		<tr>
+			<td>Title:</td>
+			<td th:text="${taskDetails.title}"></td>
+		</tr>
+		<tr>
+			<td>Summary:</td>
+			<td th:text="${taskDetails.summary}"></td>
+		</tr>
+		<tr>
+			<td>ScheduleStartDate:</td>
+			<td th:text="${taskDetails.scheduleStartDate}"></td>
+		</tr>
+		<tr>
+			<td>ScheduleEndDate:</td>
+			<td th:text="${taskDetails.scheduleEndDate}"></td>
+		</tr>
+		<tr>
+			<td>ActualStartDate:</td>
+			<td th:text="${taskDetails.actualStartDate}"></td>
+		</tr>
+		<tr>
+			<td>ActualEndDate:</td>
+			<td th:text="${taskDetails.actualEndDate}"></td>
+		</tr>
+		<tr>
+			<td>Status:</td>
+			<td th:text="${taskDetails.status}"></td>
+		</tr>
+		<tr>
+			<td>Project:</td>
+			<td th:text="${taskDetails.getProject().getName()}"></td>
+		</tr>
+		<tr>
+			<td>Assignee:</td>
+			<td th:text="${taskDetails.getAssignee().getName()}"></td>
+		</tr>
+		<tr>
+			<td>Weight:</td>
+			<td th:text="${taskDetails.weight}"></td>
+		</tr>
+		<tr>
+			<td>Score:</td>
+			<td th:text="${taskDetails.score}"></td>
+		</tr>
+	</table>
+</body>
+</html>

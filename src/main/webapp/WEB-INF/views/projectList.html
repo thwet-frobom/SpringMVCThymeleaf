@@ -10,6 +10,7 @@
 <table>
 		<tr th:each="project : ${projectNames}">
 			<td th:text="${project.name}"></td>
+			<td><a href="#" th:href="@{'/organizations/' + ${organizationId}+'/projects/'+${project.id}+'/tasks'}">Tasks</a></td>
 		</tr>
 	</table>
 	<a href="#" th:href="@{'/organizations/'+${organizationId}+'/projects/new'}">New</a>

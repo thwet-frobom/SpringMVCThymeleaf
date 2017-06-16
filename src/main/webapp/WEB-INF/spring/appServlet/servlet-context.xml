@@ -57,6 +57,14 @@
 		<property name="projectDao" ref="projectDao"></property>
 	</bean>
 	
+	 <!-- Task Inject -->
+     <bean id="taskDao" class="com.amh.pm.dao.TaskDaoImpl">
+	 </bean>
+
+	<bean id="taskService" class="com.amh.pm.service.TaskServiceImpl">
+		<property name="taskDao" ref="taskDao"></property>
+	</bean>
+	
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />

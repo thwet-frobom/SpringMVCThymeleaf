@@ -128,7 +128,7 @@ public class TaskController {
     }
     
     @RequestMapping(value = "/organizations/{organizationId}/projects/{projectId}/tasks/{taskId}", method = RequestMethod.GET)
-    public String tasksDetails(@PathVariable("organizationId") int organizationId, @PathVariable("projectId") int projectId, @PathVariable("taskId") int taskId, @Validated @ModelAttribute Task task, Model model, HttpServletRequest request) {
+    public String tasksDetails(@PathVariable("organizationId") int organizationId, @PathVariable("projectId") int projectId, @PathVariable("taskId") int taskId, Model model, HttpServletRequest request) {
 
         session = request.getSession(false);
         if (session == null) {
@@ -138,7 +138,6 @@ public class TaskController {
             
             model.addAttribute("taskDetails", tasks);
             return "taskDetails";
-        }
-        
+        } 
     }
 }

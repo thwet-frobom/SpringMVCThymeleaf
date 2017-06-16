@@ -16,11 +16,11 @@ public class Task {
 	private int id;
 	
 	@Column(name = "title", nullable = false, unique = false)
-	@NotEmpty(message = "Please enter task title.")
+	@NotEmpty
 	private String title;
 	
 	@Column(name = "summary", nullable = false, unique = false)
-	@NotEmpty(message = "Please enter task summary.")
+	@NotEmpty
 	private String summary;
 	
 	@Column(name = "scheduleStartDate", nullable = false, unique = false)
@@ -40,7 +40,7 @@ public class Task {
 	private Date actualEndDate;
 	
 	@Column(name = "status", nullable = false, unique = false)
-	@NotEmpty(message = "Please enter your task status.")
+	@NotEmpty
 	private String status;
 	
 	@ManyToOne
@@ -50,11 +50,11 @@ public class Task {
 	private User assignee;
 	
 	@Column(name = "weight", nullable = false, unique = false)
-	@NotEmpty(message = "Please enter weight.")
+	@NotEmpty
 	private String weight;
 	
 	@Column(name = "score", nullable = false, unique = false)
-	@NotEmpty(message = "Please enter score.")
+	@NotEmpty
 	private String score;
 
 	@ManyToMany(fetch = FetchType.LAZY)
