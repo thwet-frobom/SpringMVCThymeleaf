@@ -22,21 +22,29 @@
 </script>
 </head>
 <body>
-	<!-- <font color="red"><p th:text="${scheduleEndDateError}"></p></font>
+	<font color="red"><p th:text="${scheduleEndDateError}"></p></font>
 	<font color="red"><p th:text="${actualEndDateError}"></p></font>
 	<font color="red"><p th:text="${actualStartDateError}"></p></font>
-	<font color="red"><p th:text="${dateEmptyError}"></p></font> -->
+	<font color="red"><p th:text="${dateEmptyError}"></p></font>
 	
 	<form action="#"
 		th:action="@{'/organizations/'+${organizationId}+'/projects/'+${projectId}+'/tasks/new'}"
 		th:object="${task}" method="post">
-		<!-- <font color="red">
-			<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+		<font color="red">
+			<p th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></p>
 		</font> 
 		<font color="red">
-			<p th:if="${#fields.hasErrors('description')}"
-				th:errors="*{description}"></p>
-		</font> -->
+			<p th:if="${#fields.hasErrors('summary')}" th:errors="*{summary}"></p>
+		</font>
+		<font color="red">
+			<p th:if="${#fields.hasErrors('status')}" th:errors="*{status}"></p>
+		</font>
+		<font color="red">
+			<p th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}"></p>
+		</font>
+		<font color="red">
+			<p th:if="${#fields.hasErrors('score')}" th:errors="*{score}"></p>
+		</font>
 		<table>
 			<tr>
 				<td>Title:</td>
@@ -70,8 +78,9 @@
 			<tr>
 			<td>Assignee:</td>
 			<td><select th:field="*{assignee}">
+			<option value="Defaule">--Select Member--</option>
              <option th:each="memberName : ${userNames}"
-                             th:value="${memberName}"
+                             th:value="${memberName.id}"
                              th:text="${memberName.name}" />
             </select>
             </td>

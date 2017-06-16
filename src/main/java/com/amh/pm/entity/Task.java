@@ -50,13 +50,14 @@ public class Task {
 	private User assignee;
 	
 	@Column(name = "weight", nullable = false, unique = false)
-	@NotEmpty
-	private String weight;
+	private int weight;
 	
 	@Column(name = "score", nullable = false, unique = false)
-	@NotEmpty
-	private String score;
+	private int score;
 
+	@Column(name = "progress", nullable = false, unique = false)
+    private int progress;
+	
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "TaskTechnologyTag", joinColumns = @JoinColumn(name = "taskId", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "technologyTag", referencedColumnName = "id"))
 	private List<TechnologyTag> technologyTag;
@@ -65,21 +66,8 @@ public class Task {
 		super();
 	}
 
-	public Task(int id, String title, String summary, Date scheduleStartDate, Date scheduleEndDate,
-			Date actualStartDate, Date actualEndDate, String weight, String score) {
-		super();
-		this.id = id;
-		this.title = title;
-		this.summary = summary;
-		this.scheduleStartDate = scheduleStartDate;
-		this.scheduleEndDate = scheduleEndDate;
-		this.actualStartDate = actualStartDate;
-		this.actualEndDate = actualEndDate;
-		this.weight = weight;
-		this.score = score;
-	}
 	public Task( String title, String summary, Date scheduleStartDate, Date scheduleEndDate,
-			Date actualStartDate, Date actualEndDate, String weight, String score, Project project, User assignee) {
+			Date actualStartDate, Date actualEndDate, int weight, int score, int progress, Project project, User assignee) {
 		super();
 
 		this.title = title;
@@ -173,23 +161,31 @@ public class Task {
 		this.assignee = assignee;
 	}
 
-	public String getWeight() {
-		return weight;
-	}
+	public int getWeight() {
+        return weight;
+    }
 
-	public void setWeight(String weight) {
-		this.weight = weight;
-	}
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
 
-	public String getScore() {
-		return score;
-	}
+    public int getScore() {
+        return score;
+    }
 
-	public void setScore(String score) {
-		this.score = score;
-	}
+    public void setScore(int score) {
+        this.score = score;
+    }
 
-	public List<TechnologyTag> getTechnologyTag() {
+    public int getProgress() {
+        return progress;
+    }
+
+    public void setProgress(int progress) {
+        this.progress = progress;
+    }
+
+    public List<TechnologyTag> getTechnologyTag() {
 		return technologyTag;
 	}
 
